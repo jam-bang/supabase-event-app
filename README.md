@@ -108,3 +108,12 @@ Please file feedback and issues over on the [Supabase GitHub org](https://github
 - [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
 - [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
 - [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+
+---
+
+## Event Hub (이 저장소의 앱)
+
+- 배포: https://supabase-event-app.vercel.app
+- 기능: 이벤트 목록·상세, 참여 신청/취소(정원 마감 자동), 이벤트 생성·수정·삭제(주최자), 내 이벤트, 프로필
+- DB 스키마·RLS: `supabase/migrations/`
+- 문서: `docs/PRD.md`, `docs/ROADMAP.md`, `CLAUDE.md`

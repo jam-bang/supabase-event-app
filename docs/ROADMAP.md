@@ -26,8 +26,9 @@
 
 ### 1-4. 검증 및 배포
 - [x] `npm run lint`, `npm run typecheck`, `npm run build` 통과
-- [ ] RLS 검증: 비로그인 쓰기 차단, 타인 이벤트 수정 차단
-- [ ] Vercel 배포 + Supabase Auth Site URL 설정
+- [x] RLS 검증: 비로그인(anon) 이벤트 생성·참여 차단(42501), 조회 허용 확인
+- [ ] RLS 검증: 로그인 사용자 간 타인 이벤트 수정 차단 (실사용자 2명으로 확인 예정)
+- [x] Vercel 배포 + Supabase Auth Site URL·Redirect URL 설정 → https://supabase-event-app.vercel.app
 
 ## Phase 2: 기능 확장
 

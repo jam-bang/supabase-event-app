@@ -1,58 +1,36 @@
-import { DeployButton } from "@/components/deploy-button";
-import { EnvVarWarning } from "@/components/env-var-warning";
-import { AuthButton } from "@/components/auth-button";
-import { Hero } from "@/components/hero";
-import { ThemeSwitcher } from "@/components/theme-switcher";
-import { ConnectSupabaseSteps } from "@/components/tutorial/connect-supabase-steps";
-import { SignUpUserSteps } from "@/components/tutorial/sign-up-user-steps";
-import { hasEnvVars } from "@/lib/utils";
 import Link from "next/link";
-import { Suspense } from "react";
+import { ArrowRight, Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { EventGrid } from "@/components/events/event-card";
+import { getUpcomingEvents } from "@/lib/events";
+import { hasEnvVars } from "@/lib/utils";
 
-export default function Home() {
+
+export default async function Home() {
+  const events = hasEnvVars ? await getUpcomingEvents(6) : [];
+
   return (
-    <main className="min-h-screen flex flex-col items-center">
-      <div className="flex-1 w-full flex flex-col gap-20 items-center">
-        <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-          <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
-            <div className="flex gap-5 items-center font-semibold">
-              <Link href={"/"}>Next.js Supabase Starter</Link>
-              <div className="flex items-center gap-2">
-                <DeployButton />
-              </div>
-            </div>
-            {!hasEnvVars ? (
-              <EnvVarWarning />
-            ) : (
-              <Suspense>
-                <AuthButton />
-              </Suspense>
-            )}
-          </div>
-        </nav>
-        <div className="flex-1 flex flex-col gap-20 max-w-5xl p-5">
-          <Hero />
-          <main className="flex-1 flex flex-col gap-6 px-4">
-            <h2 className="font-medium text-xl mb-4">Next steps</h2>
-            {hasEnvVars ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
-          </main>
+    <div className="space-y-12">
+      <section className="space-y-4">
+        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">함께할 이벤트를 찾아보세요</h1>
+        <p className="text-muted-foreground">스터디, 모임, 사내 행사까지 — 만들고, 공유하고, 참여 신청을 받으세요.</p>
+        <div className="flex flex-wrap gap-3">
+          <Button asChild>
+            <Link href="/events/new">
+              <Plus /> 이벤트 만들기
+            </Link>
+          </Button>
+          <Button asChild variant="outline">
+            <Link href="/events">
+              전체 이벤트 <ArrowRight />
+            </Link>
+          </Button>
         </div>
-
-        <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-          <p>
-            Powered by{" "}
-            <a
-              href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-              target="_blank"
-              className="font-bold hover:underline"
-              rel="noreferrer"
-            >
-              Supabase
-            </a>
-          </p>
-          <ThemeSwitcher />
-        </footer>
-      </div>
-    </main>
+      </section>
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold">다가오는 이벤트</h2>
+        <EventGrid events={events} empty="예정된 이벤트가 없습니다. 첫 이벤트를 만들어 보세요!" />
+      </section>
+    </div>
   );
 }
